@@ -45,7 +45,7 @@
                                 <th scope="row" class="align-middle">
                                     <div class="th-div">
                                         <span class="mr-5"><?php esc_html_e( 'Spotify API Credentials', 'kirilkirkov-spotify-search' ); ?></span>
-                                        <a class="show-info" data-info="<?php esc_attr_e( 'To get your spotify API keys go to <a href=\'https://developer.spotify.com/dashboard\' target=\'_blank\'>https://developer.spotify.com</a> and register yours application. <br> Click on your application, then go to Settings section and will find the client id and secret id, copy and paste them here. <br> Into the Redirect URIs section paste this url <b>' . $this->settings_url . '</b> <br> Thats It!', 'kirilkirkov-spotify-search' ) ?>" href="javascript:;">
+                                        <a class="show-info" data-info="<?php esc_attr_e( 'To get your spotify API keys go to <a href=\'https://developer.spotify.com/dashboard\' target=\'_blank\'>https://developer.spotify.com</a> and register yours application. <br> Click on your application from the Dashboard, then from Basic Information section copy the Client ID and Client Secret. <br> Into the Redirect URIs section paste this url <b>' . $this->settings_url . '</b> <br> Thats It!', 'kirilkirkov-spotify-search' ) ?>" href="javascript:;">
                                             <?php echo $help_svg; ?>
                                         </a>
                                     </div>
@@ -202,7 +202,7 @@
                 <div class="p-4">
                     <div class="ad-box p-4 mb-4 flex flex-wrap items-center justify-between">
                         <img src="<?php echo plugins_url('GitHub-Mark-64px.png', __FILE__ ); ?>" width="30px" height="30px" alt="GitHub">
-                        <a href="https://github.com/Wordpress-Plugins-World" class="accent-button" target="_blank"><?php esc_html_e( 'Find Us', 'kirilkirkov-spotify-search' ); ?></a>
+                        <a href="https://github.com/plugins-for-wordpress" class="accent-button" target="_blank"><?php esc_html_e( 'Find Us', 'kirilkirkov-spotify-search' ); ?></a>
                     </div>
 
                     <div class="ad-box mb-4 p-4 flex flex-wrap items-center justify-between">
