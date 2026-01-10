@@ -57,6 +57,12 @@
                                 <td>
                                     <label><?php esc_html_e( 'Client Secret', 'kirilkirkov-spotify-search' ); ?></label>
                                     <input type="text" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>spotify_search_client_secret" value="<?php echo esc_attr(get_option( $Config::INPUTS_PREFIX.'spotify_search_client_secret' )); ?>" />
+
+                                    <?php if(!$this->has_public_permission) {
+                                        // By default absolute positioned results is enabled on new installations
+                                    ?>
+                                    <input type="hidden" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>spotify_search_absolute_results" value="1">
+                                    <?php } ?>
                                 </td>
                             </tr>
                             

@@ -62,8 +62,6 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 			add_action('wp_ajax_get_spotify_search_results', array($this, 'get_spotify_search_results') );
 			add_action('wp_ajax_nopriv_get_spotify_search_results', array($this, 'get_spotify_search_results') );
 
-			register_activation_hook( __FILE__, array($this, 'plugin_activation') );
-
 			add_shortcode(Config::SHORTCODE, array($this, 'load_public_form'));
 		}
 
@@ -292,7 +290,7 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 		public function plugin_activation()
 		{
 			// Only set default if option doesn't exist (new installation)
-			if (get_option(Config::INPUTS_PREFIX.'spotify_search_absolute_results') === false) {
+			if (get_option(Config::INPUTS_PREFIX.'spotify_search_absolute_results') !== '0') {
 				update_option(Config::INPUTS_PREFIX.'spotify_search_absolute_results', '1');
 			}
 		}
