@@ -1,85 +1,218 @@
+/* CSS Isolation - Reset theme styles */
+#kirilkirkov-spotify-search-container {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+  color: #333;
+  isolation: isolate;
+  contain: layout style;
+}
+
+#kirilkirkov-spotify-search-container *,
+#kirilkirkov-spotify-search-container *::before,
+#kirilkirkov-spotify-search-container *::after {
+  box-sizing: border-box;
+}
+
 /* Form design */
 #kirilkirkov-spotify-search-container .spotify-search-form {
   position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form .inputs {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #kirilkirkov-spotify-search-container .spotify-search-form input[type=text] {
-  width: 100%;
-  height: 40px;
-  padding: 6px 45px;
-  font-size: 14px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 50px;
-  box-shadow: inset 0px 0px 0px 0px transparent;
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  width: 100% !important;
+  height: 40px !important;
+  padding: 6px 45px 6px 45px !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 50px !important;
+  box-shadow: none !important;
+  outline: none !important;
+  margin: 0 !important;
+  appearance: none !important;
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
+  color: #333 !important;
+  line-height: normal !important;
+  vertical-align: baseline !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form input[type=text]:focus {
+  border-color: #999 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form input[type=text]::placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form input[type=text]::-webkit-input-placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form input[type=text]::-moz-placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form input[type=text]:-ms-input-placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-search-form button[type=submit] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 40px;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  box-shadow: inset 0px 0px 0px 0px transparent;
-  appearance: none;
-  padding-left: 10px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 40px !important;
+  width: 40px !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2 !important;
+  box-shadow: none !important;
+  appearance: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  line-height: 1 !important;
+  overflow: visible !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form button[type=submit]:hover,
+#kirilkirkov-spotify-search-container .spotify-search-form button[type=submit]:focus,
+#kirilkirkov-spotify-search-container .spotify-search-form button[type=submit]:active {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-search-form .ready {
-  display: block;
+  display: block !important;
+  width: 25px !important;
+  height: 25px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form button[type=submit] .lds-ring.show ~ .ready,
+#kirilkirkov-spotify-search-container .spotify-search-form button[type=submit]:has(.lds-ring.show) .ready {
+  display: none !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear {
-  display: none;
-  padding-left: 5px;
+  display: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 10px !important;
+  height: 40px !important;
+  width: 20px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  z-index: 3 !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+  pointer-events: auto !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear.show {
+  display: flex !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-search-form .ready svg {
-  fill: #000000;
+  fill: #000000 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 /* / Form design */
 
 /* Results design */
 #kirilkirkov-spotify-search-container .spotify-table-wrapper {
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: #121212;
   padding: 20px;
   border-radius: 15px;
   margin-top: 20px;
   width: 100%;
   display: none;
+  box-sizing: border-box;
+  position: relative;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper h2 {
-  margin: 0;
+  margin: 0 !important;
   color: #fff;
-  font-size: 25px;
-  line-height: 28px;
-  letter-spacing: -0.04em;
-  text-transform: none;
-  margin-bottom: 10px;
-  padding-left: 20px;
+  font-size: 25px !important;
+  line-height: 28px !important;
+  letter-spacing: -0.04em !important;
+  text-transform: none !important;
+  margin-bottom: 10px !important;
+  padding-left: 20px !important;
+  font-weight: 700 !important;
+  font-family: inherit !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li {
   display: flex;
   flex-direction: column;
   align-items: baseline;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul {
@@ -87,67 +220,107 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 10px;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul.pagination {
-  padding:0;
-  justify-content: start;
-  margin-left: 0;
+  padding: 0 !important;
+  justify-content: start !important;
+  margin-left: 0 !important;
+  margin-top: 20px !important;
+  gap: 10px !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul.pagination li {
-  display: flex;
+  display: flex !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_previous_page, #kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_next_page {
-  color: #fff;
-  background-color: #050505;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_previous_page, 
+#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_next_page {
+  color: #fff !important;
+  background-color: #050505 !important;
+  border-radius: 50% !important;
+  width: 35px !important;
+  height: 35px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease !important;
 }
 
-#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_previous_page:hover, #kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_next_page:hover {
-  text-decoration: none;
-  color: #fff;
+#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_previous_page:hover, 
+#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_next_page:hover {
+  text-decoration: none !important;
+  color: #fff !important;
+  background-color: #1a1a1a !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_previous_page svg,
+#kirilkirkov-spotify-search-container .spotify-table-wrapper .spotify_search_next_page svg {
+  width: 24px !important;
+  height: 24px !important;
+  fill: #fff !important;
+  display: block !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li {
-  padding: 20px;
+  padding: 10px;
+  margin: 0 !important;
+  list-style: none !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container {
   background-color: #171717;
   width: 200px;
+  min-width: 200px;
+  max-width: 200px;
   height: 310px;
   overflow: hidden;
   padding: 15px;
   border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container .cover {
   border-radius: 50%;
   width: 170px;
   height: 170px;
+  min-width: 170px;
+  min-height: 170px;
   margin-bottom: 20px;
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
-#kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container a, #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container a:hover {
+#kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container a, 
+#kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container a:hover {
   display: inline-block;
   color: #fff;
   text-decoration: none;
   text-overflow: ellipsis;
   overflow: hidden; 
-  width: 160px; 
+  width: 100%;
+  max-width: 170px;
   height: 25px;
   font-size: 14px;
   line-height: 14px;
   white-space: nowrap;
+  margin-bottom: 5px;
+}
+
+#kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container a:hover {
+  text-decoration: underline;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container span {
@@ -155,46 +328,125 @@
   color: var(--text-subdued,#6a6a6a);
   font-size: 12px;
   line-height: 16px;
-  width: 160px; 
+  width: 100%;
+  max-width: 170px;
   height: 1.2em; 
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden; 
+  overflow: hidden;
+  margin-bottom: 3px;
 }
+
 /* No results */
 #kirilkirkov-spotify-search-container .spotify-table-wrapper p {
   color: #fff;
+  margin: 0 !important;
+  padding: 20px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
 }
 /* / Results design */
 
+/* Responsive design */
+@media (max-width: 768px) {
+  #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul {
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container {
+    width: 100%;
+    max-width: 250px;
+    min-width: 180px;
+  }
+  
+  #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container .cover {
+    width: 100%;
+    max-width: 220px;
+    height: 220px;
+    min-width: 180px;
+    min-height: 180px;
+  }
+  
+  #kirilkirkov-spotify-search-container .spotify-table-wrapper {
+    padding: 15px;
+  }
+  
+  #kirilkirkov-spotify-search-container .spotify-table-wrapper h2 {
+    font-size: 20px !important;
+    padding-left: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul li .container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+  
+  #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li ul {
+    margin-left: 0;
+  }
+}
+
 /** Loading spinner */
 #kirilkirkov-spotify-search-container .spotify-search-form .lds-ring {
-    display: inline-block;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    display: none;
+    display: none !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 10px !important;
+    transform: translateY(-50%) !important;
+    width: 20px !important;
+    height: 20px !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
+
+#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring.show,
+#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring:not([style*="display: none"]) {
+    display: inline-block !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form button[type=submit] .lds-ring {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    display: none !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-search-form button[type=submit] .lds-ring.show {
+    display: inline-block !important;
+}
+
 #kirilkirkov-spotify-search-container .spotify-search-form .lds-ring div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border: 4px solid #333;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #333 transparent transparent transparent;
+    box-sizing: border-box !important;
+    display: block !important;
+    position: absolute !important;
+    width: 20px !important;
+    height: 20px !important;
+    border: 3px solid #333 !important;
+    border-radius: 50% !important;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite !important;
+    border-color: #333 transparent transparent transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
+
 #kirilkirkov-spotify-search-container .spotify-search-form .lds-ring div:nth-child(1) {
     animation-delay: -0.45s;
 }
+
 #kirilkirkov-spotify-search-container .spotify-search-form .lds-ring div:nth-child(2) {
     animation-delay: -0.3s;
 }
+
 #kirilkirkov-spotify-search-container .spotify-search-form .lds-ring div:nth-child(3) {
     animation-delay: -0.15s;
 }
+
 @keyframes lds-ring {
     0% {
       transform: rotate(0deg);

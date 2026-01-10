@@ -9,7 +9,7 @@ Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Short Description: Search Spotify for tracks, albums, playlists, and artists from your WordPress site.
+Search Spotify for tracks, albums, playlists, and artists from your WordPress site.
 
 == Description ==
 

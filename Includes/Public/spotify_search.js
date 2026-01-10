@@ -69,9 +69,9 @@ function KirilKirkovSpotifySearch() {
             ss_formProps.action = 'get_spotify_search_results'; // from backend
 
             results_container.empty();
-            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring').show();
+            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring').addClass('show');
             jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .ready').hide();
-            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear').hide();
+            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear').removeClass('show');
             jQuery('#kirilkirkov-spotify-search-container .spotify-table-wrapper').hide();
 
             if(get_params !== null) {
@@ -114,8 +114,8 @@ function KirilKirkovSpotifySearch() {
                         results_container.html('<p>No results found</p>');
                     }
                     
-                    jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring').hide();
-                    jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear').show();
+                    jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring').removeClass('show');
+                    jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear').addClass('show');
                     jQuery('#kirilkirkov-spotify-search-container .spotify-table-wrapper').show();
                 },
                 error: function(response) {  
@@ -131,9 +131,9 @@ function KirilKirkovSpotifySearch() {
         function spotifySearchClearResults() {
             results_container.empty();
             jQuery('#kirilkirkov-spotify-search-container .spotify-search-form input[type=text]').val('');
-            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring').hide();
+            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .lds-ring').removeClass('show');
             jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .ready').show();
-            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear').hide();
+            jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .spotify-search-clear').removeClass('show');
             jQuery('#kirilkirkov-spotify-search-container .spotify-table-wrapper').hide();
             jQuery('#kirilkirkov-spotify-search-container .spotify-search-form .ready').show();
         }
@@ -343,5 +343,43 @@ function KirilKirkovSpotifySearch() {
             template += '</ul>'+getPaginationLinks(spotify_items)+'</li>';
             results_container.append(template);
         }
+
+        // Prevent page scroll when scrolling inside results container
+        let results_wrapper = jQuery('#kirilkirkov-spotify-search-container .spotify-table-wrapper');
+        
+        results_wrapper.on('wheel', function(e) {
+            let delta = e.originalEvent.deltaY;
+            let element = this;
+            let scrollTop = element.scrollTop;
+            let scrollHeight = element.scrollHeight;
+            let height = element.clientHeight;
+            let isAtTop = scrollTop <= 0;
+            let isAtBottom = scrollTop + height >= scrollHeight - 1;
+            
+            // If scrolling down and at bottom, or scrolling up and at top, allow page scroll
+            if ((delta > 0 && isAtBottom) || (delta < 0 && isAtTop)) {
+                return true;
+            }
+            
+            // Otherwise, prevent page scroll and scroll the container
+            e.preventDefault();
+            e.stopPropagation();
+            element.scrollTop += delta;
+            return false;
+        });
+
+        results_wrapper.on('touchmove', function(e) {
+            let element = this;
+            let scrollTop = element.scrollTop;
+            let scrollHeight = element.scrollHeight;
+            let height = element.clientHeight;
+            let isAtTop = scrollTop <= 0;
+            let isAtBottom = scrollTop + height >= scrollHeight - 1;
+            
+            // Only prevent if we're not at the edges
+            if (!isAtTop && !isAtBottom) {
+                e.stopPropagation();
+            }
+        });
     })(jQuery); 
 }
