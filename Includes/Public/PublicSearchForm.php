@@ -19,11 +19,21 @@
   </div>
 </div>
 
-<?php if(get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results') !== false && trim(get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results')) != '' && get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results') === '1') { ?>
+<?php 
+$absolute_results = get_option($Config::INPUTS_PREFIX.'absolute_positioned_results');
+// Backward compatibility: check old option name too
+if ($absolute_results === false) {
+    $absolute_results = get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results');
+}
+// Default to enabled if option doesn't exist
+if ($absolute_results === false || trim($absolute_results) === '' || $absolute_results === '1') { 
+?>
 <style>
 #kirilkirkov-spotify-search-container {
   position: relative !important;
   width: 100% !important;
+  z-index: 1 !important;
+  isolation: isolate !important;
 }
 #kirilkirkov-spotify-search-container .spotify-table-wrapper {
   position: absolute !important;
@@ -33,7 +43,7 @@
   overflow-y: auto !important;
   overflow-x: hidden !important;
   max-height: 500px !important;
-  z-index: 999999 !important;
+  z-index: 9999999 !important;
   margin-top: 5px !important;
   margin-bottom: 0 !important;
   -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important; 
@@ -49,6 +59,19 @@
   touch-action: pan-y !important;
 }
 
+#kirilkirkov-spotify-search-container .spotify-table-wrapper * {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: inherit !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-table-wrapper a {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 9999999 !important;
+  position: relative !important;
+}
+
 #kirilkirkov-spotify-search-container .spotify-table-wrapper[style*="display: block"],
 #kirilkirkov-spotify-search-container .spotify-table-wrapper[style*="display:flex"] {
   display: block !important;
@@ -60,10 +83,21 @@
   height: auto !important;
   display: block !important;
   position: relative !important;
+  pointer-events: auto !important;
+  z-index: inherit !important;
 }
 
 #kirilkirkov-spotify-search-container .spotify-table-wrapper ul li {
   overflow: visible !important;
+  position: relative !important;
+  pointer-events: auto !important;
+  z-index: inherit !important;
+}
+
+#kirilkirkov-spotify-search-container .spotify-table-wrapper ul li a {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 9999999 !important;
   position: relative !important;
 }
 

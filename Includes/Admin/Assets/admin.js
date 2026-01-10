@@ -48,8 +48,50 @@
 		// if uncheck default styles remove features to it
 		jQuery('.spotify_search_default_styles').change(function(e) {
 			if(!jQuery(this).is(":checked")) {
+				// Keep backward compatibility with old class name
 				jQuery('.spotify_search_default_styles_features').removeAttr('checked');
 			}
+		});
+
+		// URL Parameters management
+		function updateUrlParamsInput() {
+			let params = [];
+			jQuery('.spotify-url-param-row').each(function() {
+				let key = jQuery(this).find('.spotify-param-key').val().trim();
+				let value = jQuery(this).find('.spotify-param-value').val().trim();
+				if (key !== '') {
+					params.push({ key: key, value: value });
+				}
+			});
+			jQuery('#spotify-url-params-input').val(JSON.stringify(params));
+		}
+
+		// Add new parameter row
+		jQuery('#spotify-add-param').on('click', function() {
+			let row = jQuery('<div class="spotify-url-param-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">' +
+				'<input type="text" class="spotify-param-key" placeholder="Parameter key" value="" style="flex: 1; padding: 5px;">' +
+				'<span>=</span>' +
+				'<input type="text" class="spotify-param-value" placeholder="Parameter value" value="" style="flex: 1; padding: 5px;">' +
+				'<button type="button" class="button spotify-remove-param" style="padding: 5px 10px;">Remove</button>' +
+				'</div>');
+			jQuery('#spotify-url-params-container').append(row);
+			updateUrlParamsInput();
+		});
+
+		// Remove parameter row
+		jQuery(document).on('click', '.spotify-remove-param', function() {
+			jQuery(this).closest('.spotify-url-param-row').remove();
+			updateUrlParamsInput();
+		});
+
+		// Update hidden input on change
+		jQuery(document).on('input', '.spotify-param-key, .spotify-param-value', function() {
+			updateUrlParamsInput();
+		});
+
+		// Update hidden input before form submit
+		jQuery('form').on('submit', function() {
+			updateUrlParamsInput();
 		});
 	}
 })(jQuery);

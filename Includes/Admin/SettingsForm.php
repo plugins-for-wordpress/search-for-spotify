@@ -141,8 +141,19 @@
 
                                         <div class="mb-4">
                                             <label>
-                                                <input type="hidden" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>spotify_search_absolute_results" value="0">
-                                                <input type="checkbox" class="spotify_search_default_styles_features" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>spotify_search_absolute_results" value="1" <?php echo get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results') !== false && trim(get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results')) !== '' && get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results') === '1' ? 'checked' : ''; ?> />
+                                                <input type="hidden" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>absolute_positioned_results" value="0">
+                                                <input type="checkbox" class="absolute_positioned_results" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>absolute_positioned_results" value="1" <?php 
+                                                    $option_value = get_option($Config::INPUTS_PREFIX.'absolute_positioned_results');
+                                                    // Default to checked if option doesn't exist or is empty (backward compatibility: check old option name too)
+                                                    $old_option = get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results');
+                                                    if ($option_value === false && $old_option === false) {
+                                                        echo 'checked';
+                                                    } elseif ($option_value !== false && trim($option_value) !== '' && $option_value === '1') {
+                                                        echo 'checked';
+                                                    } elseif ($old_option !== false && trim($old_option) !== '' && $old_option === '1') {
+                                                        echo 'checked';
+                                                    }
+                                                ?> />
                                                 <?php esc_html_e( 'Absolute positioned results', 'kirilkirkov-spotify-search' ); ?>
                                             </label>
                                         </div>
@@ -168,6 +179,69 @@
                                             </label>
                                         </div>
                                         <textarea name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>spotify_search_styles"><?php echo esc_html(get_option( $Config::INPUTS_PREFIX.'spotify_search_styles' )); ?></textarea>
+                                    </td>
+                                </tr>
+                                <!-- URL Parameters -->
+                                <tr valign="top">
+                                    <th scope="row" class="align-middle">
+                                        <div class="th-div">
+                                            <span class="mr-5"><?php esc_html_e( 'URL Parameters', 'kirilkirkov-spotify-search' ); ?></span>
+                                            <a class="show-info" data-info="<?php esc_attr_e( 'Add custom GET parameters to Spotify links (e.g., referral links, tracking parameters). These will be appended to all Spotify URLs.', 'kirilkirkov-spotify-search' ); ?>" href="javascript:;">
+                                                <?php echo $help_svg; ?>
+                                            </a>
+                                        </div>
+                                    </th>
+                                    <td colspan="2">
+                                        <div id="spotify-url-params-container" style="margin-top: 10px;">
+                                            <?php 
+                                            $url_params = get_option($Config::INPUTS_PREFIX.'spotify_search_url_params');
+                                            $params_array = [];
+                                            if ($url_params && is_string($url_params)) {
+                                                $params_array = json_decode($url_params, true);
+                                            }
+                                            if (!is_array($params_array)) {
+                                                $params_array = [];
+                                            }
+                                            
+                                            if (empty($params_array)) {
+                                                // Show one empty row by default
+                                                $params_array = [['key' => '', 'value' => '']];
+                                            }
+                                            
+                                            foreach ($params_array as $index => $param) {
+                                                $key = isset($param['key']) ? esc_attr($param['key']) : '';
+                                                $value = isset($param['value']) ? esc_attr($param['value']) : '';
+                                            ?>
+                                                <div class="spotify-url-param-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                                                    <input type="text" 
+                                                           class="spotify-param-key" 
+                                                           placeholder="<?php esc_attr_e('Parameter key', 'kirilkirkov-spotify-search'); ?>" 
+                                                           value="<?php echo $key; ?>" 
+                                                           style="flex: 1; padding: 5px;">
+                                                    <span>=</span>
+                                                    <input type="text" 
+                                                           class="spotify-param-value" 
+                                                           placeholder="<?php esc_attr_e('Parameter value', 'kirilkirkov-spotify-search'); ?>" 
+                                                           value="<?php echo $value; ?>" 
+                                                           style="flex: 1; padding: 5px;">
+                                                    <button type="button" 
+                                                            class="button spotify-remove-param" 
+                                                            style="padding: 5px 10px;">
+                                                        <?php esc_html_e('Remove', 'kirilkirkov-spotify-search'); ?>
+                                                    </button>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                        <button type="button" 
+                                                id="spotify-add-param" 
+                                                class="button" 
+                                                style="margin-top: 10px;">
+                                            <?php esc_html_e('Add Parameter', 'kirilkirkov-spotify-search'); ?>
+                                        </button>
+                                        <input type="hidden" 
+                                               name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>spotify_search_url_params" 
+                                               id="spotify-url-params-input" 
+                                               value="<?php echo esc_attr($url_params ? $url_params : '[]'); ?>">
                                     </td>
                                 </tr>
                                 <!-- Shortcode -->

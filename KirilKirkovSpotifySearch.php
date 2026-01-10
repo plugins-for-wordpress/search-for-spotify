@@ -3,7 +3,7 @@
 /*
  Plugin Name: Search for Spotify
  Description: This plugin search in Spotify for tracks, albums, playlists and artists.
- Version: 1.5
+ Version: 1.6
  Author: Kiril Kirkov
  Author URI: https://github.com/kirilkirkov/
  License: GPLv2 or later
@@ -126,12 +126,27 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 				$open_in_tunedex = true;
 			}
 
+			// Get URL parameters
+			$url_params = get_option(Config::INPUTS_PREFIX.'spotify_search_url_params');
+			$url_params_array = array();
+			if ($url_params && is_string($url_params)) {
+				$decoded = json_decode($url_params, true);
+				if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+					$url_params_array = $decoded;
+				}
+			}
+			// Ensure it's always an array
+			if (!is_array($url_params_array)) {
+				$url_params_array = array();
+			}
+
 			// load js
 			wp_enqueue_script(Config::SCRIPTS_PREFIX.'script_public_js', plugins_url( '/Includes/Public/spotify_search.js', __FILE__ ), array('jquery'), false, true);
 			// Pass ajax_url to scripts
 			wp_localize_script(Config::SCRIPTS_PREFIX.'script_public_js', 'ajax_object', array( 
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'open_in_tunedex' => $open_in_tunedex,
+				'url_params' => $url_params_array,
 			));
 			
 			// load styles if they are not exluded from the settings
@@ -197,6 +212,18 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 
 		public function setup_admin()
 		{
+			// Add main menu item
+			add_menu_page( 
+				__( 'Spotify Search Plugin', 'kirilkirkov-spotify-search' ), 
+				__( 'Spotify Search', 'kirilkirkov-spotify-search' ), 
+				'administrator', 
+				Config::SETTINGS_GET_PARAM, 
+				array( $this, 'admin_page' ),
+				'dashicons-spotify',
+				30
+			);
+			
+			// Also add under Settings for backward compatibility
 			add_options_page( __( 'Spotify Search Plugin', 'kirilkirkov-spotify-search' ), __( 'Spotify Search', 'kirilkirkov-spotify-search' ), 'administrator', Config::SETTINGS_GET_PARAM, array( $this, 'admin_page' ) );
 		}
 

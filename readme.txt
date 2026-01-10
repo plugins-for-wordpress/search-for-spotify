@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: spotify search, spotify, spotify widget, spotify shortcode
 Requires at least: 4.7
 Tested up to: 6.9
-Stable tag: 1.5
+Stable tag: 1.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,6 +33,7 @@ Integrated with [tunedex.routenote.com](https://tunedex.routenote.com), part of 
 * Beautiful design which looks exactly like your users are in spotify
 * All type of themes compatible
 * Open found results directly on Spotify or [Tunedex RouteNote](https://tunedex.routenote.com) **(Tunedex is biggest Open Music Database with a lot of additional information)**
+* Add custom URL parameters (GET parameters) to all Spotify links - perfect for referral links, tracking parameters, or any custom parameters you need
 
 Beautiful and easy administration with help/explain for each field and feature.
 
@@ -60,6 +61,10 @@ Go to WordPress Spotify Settings and enter your client and secret id's, then sav
 
 When get the token, just copy the Shortcode and paste in into your page/s.
 
+= How to add custom URL parameters to Spotify links? =
+
+Go to WordPress Spotify Settings, scroll down to "URL Parameters" section. Click "Add Parameter" to add key-value pairs. These parameters will be automatically appended to all Spotify links as GET parameters. This is perfect for adding referral links, tracking parameters (like UTM parameters), or any custom parameters you need. For example, if you add parameter "ref" with value "wordpress", all links will look like: `https://open.spotify.com/track/123?ref=wordpress`
+
 == Screenshots ==
 
 1. Public widget throught shortcode
@@ -76,3 +81,7 @@ When get the token, just copy the Shortcode and paste in into your page/s.
 = 1.5 =
 * Updated for WordPress 6.9
 * Minor bug fixes
+= 1.6 =
+* Added URL Parameters feature - add custom GET parameters to all Spotify links (perfect for referral links and tracking)
+* Improved CSS isolation for better theme compatibility
+* Enhanced absolute positioned results with better scrolling and z-index handling

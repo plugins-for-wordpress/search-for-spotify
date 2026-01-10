@@ -29,6 +29,52 @@ function KirilKirkovSpotifySearch() {
             artist_open_in = 'https://tunedex.routenote.com/artists/';
             track_open_in = 'https://tunedex.routenote.com/tracks/';    
         }
+
+        /**
+         * Add URL parameters to a URL
+         * 
+         * @param {string} url - The base URL
+         * @returns {string} - URL with parameters appended
+         */
+        function addUrlParams(url) {
+            // Safety check: if url is empty or invalid, return as is
+            if (!url || typeof url !== 'string' || url.trim() === '') {
+                return url || '';
+            }
+
+            // Check if ajax_object exists
+            if (typeof ajax_object === 'undefined' || !ajax_object) {
+                return url;
+            }
+
+            // Check if url_params exists and is valid
+            if (!ajax_object.url_params || !Array.isArray(ajax_object.url_params) || ajax_object.url_params.length === 0) {
+                return url;
+            }
+
+            let params = [];
+            try {
+                ajax_object.url_params.forEach(function(param) {
+                    if (param && typeof param === 'object' && param.key && typeof param.key === 'string' && param.key.trim() !== '') {
+                        let key = param.key.trim();
+                        let value = (param.value && typeof param.value === 'string') ? param.value.trim() : '';
+                        // WordPress-compliant encoding using encodeURIComponent (same as esc_url_raw in PHP)
+                        params.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+                    }
+                });
+            } catch (e) {
+                // If there's any error, just return the original URL
+                console.error('Error adding URL params:', e);
+                return url;
+            }
+
+            if (params.length === 0) {
+                return url;
+            }
+
+            let separator = url.indexOf('?') !== -1 ? '&' : '?';
+            return url + separator + params.join('&');
+        }
         
         /**
         * Execute a function given a delay time - helper debounce
@@ -210,7 +256,7 @@ function KirilKirkovSpotifySearch() {
                 <li> \
                     <div class="container"> \
                         <div class="cover" style="background-image: url(\''+image+'\')"></div> \
-                        <a href="' + album_open_in + obj.id + '" target="_blank"> \
+                        <a href="' + addUrlParams(album_open_in + obj.id) + '" target="_blank"> \
                             '+obj.name+' \
                         </a> \
                         <span><b>Artists:</b> '+artists+'</span> \
@@ -256,7 +302,7 @@ function KirilKirkovSpotifySearch() {
                 <li> \
                     <div class="container"> \
                         <div class="cover" style="background-image: url(\''+image+'\')"></div> \
-                        <a href="' + artist_open_in + obj.id + '" target="_blank"> \
+                        <a href="' + addUrlParams(artist_open_in + obj.id) + '" target="_blank"> \
                             '+obj.name+' \
                         </a> \
                         <span><b>Followers:</b> '+obj.followers.total+'</span> \
@@ -298,7 +344,7 @@ function KirilKirkovSpotifySearch() {
                 <li> \
                     <div class="container"> \
                         <div class="cover" style="background-image: url(\''+image+'\')"></div> \
-                        <a href="' + track_open_in + obj.id + '" target="_blank"> \
+                        <a href="' + addUrlParams(track_open_in + obj.id) + '" target="_blank"> \
                             '+obj.name+' \
                         </a> \
                         <span><b>Artists:</b> '+artists+'</span> \
@@ -332,7 +378,7 @@ function KirilKirkovSpotifySearch() {
                     <div class="container"> \
                         <div class="cover" style="background-image: url(\''+image+'\')"></div> \
                         <div style="background-image: url(\''+image+'\')"></div> \
-                        <a href="https://open.spotify.com/track/'+obj.id+'" target="_blank"> \
+                        <a href="' + addUrlParams(track_open_in + obj.id) + '" target="_blank"> \
                             '+obj.name+' \
                         </a> \
                         <span>'+obj.owner.display_name+'</span> \
