@@ -42,5 +42,5 @@
 - git add File.php
 - git commit -m "Fix something in File.php"
 - git push origin master
-- git tag v1.8
-- git push origin v1.8
+- git tag v1.9
+- git push origin v1.9
