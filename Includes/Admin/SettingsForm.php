@@ -144,13 +144,30 @@
                                                 <input type="hidden" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>absolute_positioned_results" value="0">
                                                 <input type="checkbox" class="absolute_positioned_results" name="<?php esc_attr_e($Config::INPUTS_PREFIX); ?>absolute_positioned_results" value="1" <?php 
                                                     $option_value = get_option($Config::INPUTS_PREFIX.'absolute_positioned_results');
-                                                    // Default to checked if option doesn't exist or is empty (backward compatibility: check old option name too)
+                                                    // Backward compatibility: check old option name too
                                                     $old_option = get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results');
-                                                    if ($option_value === false && $old_option === false) {
-                                                        echo 'checked';
-                                                    } elseif ($option_value !== false && trim($option_value) !== '' && $option_value === '1') {
-                                                        echo 'checked';
-                                                    } elseif ($old_option !== false && trim($old_option) !== '' && $old_option === '1') {
+                                                    
+                                                    // Determine if checkbox should be checked
+                                                    // Explicitly check the stored value
+                                                    $is_checked = false;
+                                                    
+                                                    // Check new option first
+                                                    if ($option_value !== false) {
+                                                        // Option exists - check its value
+                                                        // WordPress may return "0" as string, 0 as int, or false
+                                                        // We explicitly check for "1" or 1, everything else is unchecked
+                                                        $is_checked = ($option_value === '1' || $option_value === 1);
+                                                    } 
+                                                    // If new option doesn't exist, check old option for backward compatibility
+                                                    elseif ($old_option !== false) {
+                                                        $is_checked = ($old_option === '1' || $old_option === 1);
+                                                    } 
+                                                    // Neither option exists - default to checked (new installation)
+                                                    else {
+                                                        $is_checked = true;
+                                                    }
+                                                    
+                                                    if ($is_checked) {
                                                         echo 'checked';
                                                     }
                                                 ?> />

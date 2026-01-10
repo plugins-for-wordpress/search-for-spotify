@@ -99,6 +99,12 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 		 */
 		public function get_spotify_search_results()
 		{
+			// Verify nonce for security
+			if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'spotify_search_ajax_nonce')) {
+				wp_send_json_error(array('error' => __('Security check failed. Please refresh the page and try again.', 'kirilkirkov-spotify-search')));
+				exit;
+			}
+
 			if(!class_exists('\KirilKirkov\SpotifyXhr')) {
 				require 'Includes/Public/SpotifyXhr.php';
 			}
@@ -142,11 +148,12 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 
 			// load js
 			wp_enqueue_script(Config::SCRIPTS_PREFIX.'script_public_js', plugins_url( '/Includes/Public/spotify_search.js', __FILE__ ), array('jquery'), false, true);
-			// Pass ajax_url to scripts
+			// Pass ajax_url and nonce to scripts
 			wp_localize_script(Config::SCRIPTS_PREFIX.'script_public_js', 'ajax_object', array( 
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'open_in_tunedex' => $open_in_tunedex,
 				'url_params' => $url_params_array,
+				'nonce' => wp_create_nonce('spotify_search_ajax_nonce'),
 			));
 			
 			// load styles if they are not exluded from the settings
@@ -205,7 +212,22 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 
 			foreach(Config::get_groups_input_fieds() as $group => $inputs) {
 				foreach($inputs as $input) {
-					register_setting($group, Config::INPUTS_PREFIX.$input);
+					// Add sanitize callback for absolute_positioned_results to ensure "0" is saved correctly
+					if ($input === 'absolute_positioned_results') {
+						register_setting($group, Config::INPUTS_PREFIX.$input, array(
+							'sanitize_callback' => function($value) {
+								// Handle all possible values: "1", 1, "0", 0, false, null, empty string
+								// Always return "0" or "1" as string
+								if ($value === '1' || $value === 1 || $value === true) {
+									return '1';
+								}
+								// Everything else (including "0", 0, false, null, empty) should be "0"
+								return '0';
+							}
+						));
+					} else {
+						register_setting($group, Config::INPUTS_PREFIX.$input);
+					}
 				}
 			}
 		}
@@ -282,4 +304,12 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 	}
 
 	$spotify_search = KirilKirkovSpotifySearch::getInstance();
+
+	// Set default value for absolute_positioned_results on plugin activation
+	register_activation_hook(__FILE__, function() {
+		// Only set default if option doesn't exist (new installation)
+		if (get_option(Config::INPUTS_PREFIX.'absolute_positioned_results') === false) {
+			update_option(Config::INPUTS_PREFIX.'absolute_positioned_results', '1');
+		}
+	});
 }

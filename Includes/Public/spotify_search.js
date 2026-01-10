@@ -125,6 +125,9 @@ function KirilKirkovSpotifySearch() {
                 ss_formProps = Object.assign(ss_formProps, query_string_to_obj);
             }
         
+            // Add nonce for security
+            ss_formProps.nonce = ajax_object.nonce;
+            
             jQuery.ajax({
                 url: ajax_object.ajax_url,
                 type: 'POST',

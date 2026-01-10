@@ -25,8 +25,10 @@ $absolute_results = get_option($Config::INPUTS_PREFIX.'absolute_positioned_resul
 if ($absolute_results === false) {
     $absolute_results = get_option($Config::INPUTS_PREFIX.'spotify_search_absolute_results');
 }
-// Default to enabled if option doesn't exist
-if ($absolute_results === false || trim($absolute_results) === '' || $absolute_results === '1') { 
+// Default to enabled if option doesn't exist (new installation)
+// Only apply absolute positioning if explicitly set to "1" or not set at all (default)
+// If explicitly set to "0", do NOT apply absolute positioning
+if ($absolute_results === false || $absolute_results === '1') { 
 ?>
 <style>
 #kirilkirkov-spotify-search-container {
