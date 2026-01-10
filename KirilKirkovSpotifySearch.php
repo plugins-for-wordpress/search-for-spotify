@@ -62,6 +62,8 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 			add_action('wp_ajax_get_spotify_search_results', array($this, 'get_spotify_search_results') );
 			add_action('wp_ajax_nopriv_get_spotify_search_results', array($this, 'get_spotify_search_results') );
 
+			register_activation_hook( __FILE__, array($this, 'plugin_activation') );
+
 			add_shortcode(Config::SHORTCODE, array($this, 'load_public_form'));
 		}
 
@@ -212,22 +214,7 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 
 			foreach(Config::get_groups_input_fieds() as $group => $inputs) {
 				foreach($inputs as $input) {
-					// Add sanitize callback for absolute_positioned_results to ensure "0" is saved correctly
-					if ($input === 'absolute_positioned_results') {
-						register_setting($group, Config::INPUTS_PREFIX.$input, array(
-							'sanitize_callback' => function($value) {
-								// Handle all possible values: "1", 1, "0", 0, false, null, empty string
-								// Always return "0" or "1" as string
-								if ($value === '1' || $value === 1 || $value === true) {
-									return '1';
-								}
-								// Everything else (including "0", 0, false, null, empty) should be "0"
-								return '0';
-							}
-						));
-					} else {
-						register_setting($group, Config::INPUTS_PREFIX.$input);
-					}
+					register_setting($group, Config::INPUTS_PREFIX.$input);
 				}
 			}
 		}
@@ -301,15 +288,15 @@ if(!class_exists('KirilKirkovSpotifySearch')) {
 			$new_query = http_build_query($parameters); // Rebuilt query string
 			return $base_url.'?'.$new_query;            // Finally url is ready
 		}
+
+		public function plugin_activation()
+		{
+			// Only set default if option doesn't exist (new installation)
+			if (get_option(Config::INPUTS_PREFIX.'spotify_search_absolute_results') === false) {
+				update_option(Config::INPUTS_PREFIX.'spotify_search_absolute_results', '1');
+			}
+		}
 	}
 
 	$spotify_search = KirilKirkovSpotifySearch::getInstance();
-
-	// Set default value for absolute_positioned_results on plugin activation
-	register_activation_hook(__FILE__, function() {
-		// Only set default if option doesn't exist (new installation)
-		if (get_option(Config::INPUTS_PREFIX.'absolute_positioned_results') === false) {
-			update_option(Config::INPUTS_PREFIX.'absolute_positioned_results', '1');
-		}
-	});
 }
