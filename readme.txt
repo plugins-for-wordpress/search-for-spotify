@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: spotify search, spotify, spotify widget, spotify shortcode
 Requires at least: 4.7
 Tested up to: 6.9
-Stable tag: 1.6
+Stable tag: 1.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
