@@ -3,7 +3,7 @@
 /*
  Plugin Name: Search for Spotify
  Description: This plugin search in Spotify for tracks, albums, playlists and artists.
- Version: 2.0
+ Version: 2.1
  Author: Kiril Kirkov
  Author URI: https://github.com/kirilkirkov/
  License: GPLv2 or later

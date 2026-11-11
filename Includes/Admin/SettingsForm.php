@@ -277,24 +277,10 @@
                         <a href="https://github.com/plugins-for-wordpress" class="accent-button" target="_blank"><?php esc_html_e( 'Find Us', 'kirilkirkov-spotify-search' ); ?></a>
                     </div>
 
-                    <div class="ad-box mb-4 p-4 flex flex-wrap items-center justify-between">
-                        <p class="m-0 mb-4 text-center"><?php esc_html_e( 'Increase Shopify AOV across Product, Cart, Checkout & Post-Purchase with intelligent upsells. Just $9/month - 14 days free.', 'kirilkirkov-wp-invoices' ); ?></p>
-                        <a href="https://apps.shopify.com/smartsellio" class="w-full" target="_blank">
-                            <img class="w-full" src="<?php echo plugins_url('/Assets/Img/smartsellio-banner.png', __FILE__ ); ?>" alt="<?php echo esc_attr( 'Agile Scrum' ) ?>" />
-                        </a>
-                    </div>
-
-                    <div class="ad-box mb-4 p-4 flex flex-wrap items-center justify-between">
-                        <p class="m-0 mb-4 text-center"><?php esc_html_e( 'Get Powerful WordPress Invoices Generator with WooCommerce integration', 'kirilkirkov-spotify-search' ); ?></p>
-                        <a href="https://codecanyon.net/item/wp-invoices-pdf-electronic-invoicing-system/36891583" class="w-full" target="_blank">
-                            <img class="w-full" src="<?php echo plugins_url('Assets/Img/274x300.png', __FILE__ ); ?>" alt="<?php echo esc_attr( 'WordPress Invoices' ) ?>" />
-                        </a>
-                    </div>
-
                     <div class="ad-box p-4 flex flex-wrap items-center justify-between">
                         <p class="m-0 mb-4 w-full text-center"><?php esc_html_e( 'Looking for music distribution?', 'kirilkirkov-spotify-search' ); ?></p>
-                        <a href="https://www.routenote.com/?ref=wordpress-kirilkirkov-spotify-search" class="w-full" target="_blank">
-                            <img class="w-full" src="<?php echo plugins_url('Assets/Img/routenote.jpg', __FILE__ ); ?>" alt="<?php echo esc_attr( 'WordPress Invoices' ) ?>" />
+                        <a href="https://www.routenote.com/?ref=wordpress-kiko-spotify-search" class="w-full" target="_blank">
+                            <img class="w-full" src="<?php echo plugins_url('Assets/Img/routenote.jpg', __FILE__ ); ?>" alt="<?php echo esc_attr( 'Looking for music distribution?' ) ?>" />
                         </a>
                     </div>
                 </div>
